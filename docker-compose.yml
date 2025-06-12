@@ -1,0 +1,16 @@
+services:
+  projeto-usuariosapi-db:
+    image: postgres:16
+    container_name: projeto-usuariosapi-postgres
+    restart: always
+    ports:
+      - "5438:5432"
+    environment:
+      POSTGRES_DB: projetousuariosapi
+      POSTGRES_USER: usuariosuser
+      POSTGRES_PASSWORD: usuariospassword
+    volumes:
+      - usuariosapi-db-data:/var/lib/postgresql/data
+
+volumes:
+  usuariosapi-db-data:
