@@ -11,7 +11,7 @@ import br.com.cotiinformatica.entities.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
-	@Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM Usuario u WHERE u.email = :email¨")
+	@Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM Usuario u WHERE u.email = :email")
 	Boolean existsByEmail(@Param("email")String email);
 	
 	@Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM Usuario u WHERE u.email = :email AND u.senha = :senha")
