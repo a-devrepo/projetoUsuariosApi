@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import br.com.cotiinformatica.exceptions.AcessoNegadoException;
 import br.com.cotiinformatica.exceptions.EmailJaCadastradoException;
 
 @ControllerAdvice
@@ -46,5 +47,18 @@ public class GlobalExceptionHandler {
 		body.put("erro", exception.getMessage());
 		
 		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(AcessoNegadoException.class)
+	public ResponseEntity<Map<String, Object>> handleAcessoNegadoException(
+			AcessoNegadoException exception,
+			WebRequest request
+			) {
+		
+		var body = new HashMap<String, Object>();
+		body.put("status", HttpStatus.UNAUTHORIZED.value());
+		body.put("erro", exception.getMessage());
+		
+		return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
 	}
 }
