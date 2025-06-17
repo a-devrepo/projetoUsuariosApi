@@ -1,4 +1,4 @@
-package br.com.cotiinformatica.entities;
+package br.com.cotiinformatica.handlers;
 
 import java.util.HashMap;
 import java.util.Map;
