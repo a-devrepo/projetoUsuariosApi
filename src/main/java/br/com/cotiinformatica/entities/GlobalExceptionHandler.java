@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import br.com.cotiinformatica.exceptions.EmailJaCadastradoException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -29,6 +31,19 @@ public class GlobalExceptionHandler {
 		var body = new HashMap<String, Object>();
 		body.put("status", HttpStatus.BAD_REQUEST.value());
 		body.put("erros", erros);
+		
+		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(EmailJaCadastradoException.class)
+	public ResponseEntity<Map<String, Object>> handleEmailJaCadastradoException(
+			EmailJaCadastradoException exception,
+			WebRequest request
+			) {
+		
+		var body = new HashMap<String, Object>();
+		body.put("status", HttpStatus.BAD_REQUEST.value());
+		body.put("erro", exception.getMessage());
 		
 		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
 	}
