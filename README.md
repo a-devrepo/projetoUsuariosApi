@@ -1,27 +1,77 @@
-# Getting Started
+# API de Gerenciamento de Usuários
 
-### Reference Documentation
-For further reference, please consider the following sections:
+Projeto simples de uma API REST construída com **Spring Boot** e **Java 21**, para gerenciamento de usuários.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.5.0/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.5.0/maven-plugin/build-image.html)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/3.5.0/reference/data/sql.html#data.sql.jpa-and-spring-data)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/3.5.0/reference/using/devtools.html)
-* [Spring Web](https://docs.spring.io/spring-boot/3.5.0/reference/web/servlet.html)
+## Tecnologias e Ferramentas
 
-### Guides
-The following guides illustrate how to use some features concretely:
+- Java 21
+- Spring Boot
+- Maven
+- Spring Data JPA
+- PostgreSQL (Docker)
+- Jakarta Validation
+- Swagger (OpenAPI)
 
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+## Estrutura do Projeto
 
-### Maven Parent overrides
+O projeto está organizado em camadas para facilitar a manutenção e evolução:
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+- **controllers**  
+Contém o `UsuariosController`, responsável pelos endpoints de criação e autenticação de usuários.
 
+- **components**  
+Inclui o `CryptoComponent`, responsável pela criptografia de senhas.
+
+- **dtos**  
+Define os objetos de transferência de dados:  
+`CriarUsuarioRequestDTO`, `CriarUsuarioResponseDTO`, `AutenticarUsuarioRequestDTO`, `AutenticarUsuarioResponseDTO`.  
+As classes de request utilizam validações com Jakarta Validation.
+
+- **entities**  
+Contém a entidade `Usuario`, que representa o domínio.
+
+- **exceptions**  
+Exceções personalizadas:  
+`AcessoNegadoException`, `EmailJaCadastradoException`.
+
+- **handlers**  
+Implementa o `GlobalExceptionHandler`, responsável pelo tratamento global de exceções.
+
+- **repositories**  
+Contém o `UsuarioRepository`, interface de acesso aos dados.
+
+- **services**  
+Inclui o `UsuarioService`, onde fica a lógica de negócios.
+
+## Banco de Dados
+
+O projeto utiliza um banco **PostgreSQL** executado em um container Docker.
+
+## Documentação da API
+
+A documentação dos endpoints está disponível via **Swagger**, acessível após subir a aplicação.
+
+
+## Como executar o projeto
+
+**Clone o repositório**
+
+```bash
+git clone https://https://github.com/a-devrepo/projetoUsuariosApi
+cd projetoUsuariosApi
+```
+**Suba o banco de dados**
+
+```bash
+docker-compose up -d
+```
+**Execute a aplicação**
+
+```bash
+./mvnw spring-boot:run
+```
+**Acesse a documentação Swagger**
+
+```bash
+http://localhost:8082/swagger-ui/index.html
+```
