@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cotiinformatica.dtos.CriarUsuarioRequestDTO;
 import br.com.cotiinformatica.dtos.CriarUsuarioResponseDTO;
 import br.com.cotiinformatica.services.UsuarioService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
@@ -20,7 +21,7 @@ public class UsuariosController {
 	}
 
 	@PostMapping
-	public CriarUsuarioResponseDTO criar(@RequestBody CriarUsuarioRequestDTO requestDTO) {
+	public CriarUsuarioResponseDTO criar(@RequestBody @Valid CriarUsuarioRequestDTO requestDTO) {
 
 		return usuarioService.criarUsuario(requestDTO);
 	}
