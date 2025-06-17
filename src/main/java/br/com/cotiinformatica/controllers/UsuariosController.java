@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cotiinformatica.dtos.AutenticarUsuarioRequestDTO;
+import br.com.cotiinformatica.dtos.AutenticarUsuarioResponseDTO;
 import br.com.cotiinformatica.dtos.CriarUsuarioRequestDTO;
 import br.com.cotiinformatica.dtos.CriarUsuarioResponseDTO;
 import br.com.cotiinformatica.services.UsuarioService;
@@ -24,5 +26,11 @@ public class UsuariosController {
 	public CriarUsuarioResponseDTO criar(@RequestBody @Valid CriarUsuarioRequestDTO requestDTO) {
 
 		return usuarioService.criarUsuario(requestDTO);
+	}
+	
+	@PostMapping("/autenticar")
+	public AutenticarUsuarioResponseDTO autenticar(@RequestBody @Valid AutenticarUsuarioRequestDTO requestDTO) {
+
+		return usuarioService.autenticarUsuario(requestDTO);
 	}
 }
