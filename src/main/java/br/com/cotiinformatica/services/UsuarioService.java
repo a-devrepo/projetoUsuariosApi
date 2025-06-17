@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import br.com.cotiinformatica.dtos.CriarUsuarioRequestDTO;
 import br.com.cotiinformatica.dtos.CriarUsuarioResponseDTO;
 import br.com.cotiinformatica.entities.Usuario;
+import br.com.cotiinformatica.exceptions.EmailJaCadastradoException;
 import br.com.cotiinformatica.repositories.UsuarioRepository;
 
 @Service
@@ -21,7 +22,7 @@ public class UsuarioService {
 	public CriarUsuarioResponseDTO criarUsuario(CriarUsuarioRequestDTO requestDTO) {
 		
 		if (usuarioRepository.existsByEmail(requestDTO.getEmail())) {
-			throw new IllegalArgumentException("O E-mail informado já está cadastrado.");
+			throw new EmailJaCadastradoException();
 		}
 		
 		var usuario = new Usuario();
