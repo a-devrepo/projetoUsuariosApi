@@ -1,10 +1,12 @@
 package br.com.cotiinformatica.services;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.springframework.stereotype.Service;
 
 import br.com.cotiinformatica.components.CryptoComponent;
+import br.com.cotiinformatica.components.JwtBearerComponent;
 import br.com.cotiinformatica.dtos.AutenticarUsuarioRequestDTO;
 import br.com.cotiinformatica.dtos.AutenticarUsuarioResponseDTO;
 import br.com.cotiinformatica.dtos.CriarUsuarioRequestDTO;
@@ -19,10 +21,13 @@ public class UsuarioService {
 
 	private UsuarioRepository usuarioRepository;
 	private CryptoComponent cryptoComponent;
+	private JwtBearerComponent jwtBearerComponent;
 	
-	public UsuarioService(UsuarioRepository usuarioRepository,CryptoComponent cryptoComponent) {
+	public UsuarioService(UsuarioRepository usuarioRepository,CryptoComponent cryptoComponent,
+			JwtBearerComponent jwtBearerComponent) {
 		this.usuarioRepository = usuarioRepository;
 		this.cryptoComponent = cryptoComponent;
+		this.jwtBearerComponent = jwtBearerComponent;
 	}
 	
 	public CriarUsuarioResponseDTO criarUsuario(CriarUsuarioRequestDTO requestDTO) {
@@ -60,7 +65,9 @@ public class UsuarioService {
 		responseDTO.setNome(usuario.getNome());
 		responseDTO.setEmail(usuario.getEmail());
 		responseDTO.setDataHoraAcesso(LocalDateTime.now());
-		responseDTO.setToken("token-gerado-aqui"); 
+		responseDTO.setDataHoraExpiracao(jwtBearerComponent
+				.getExpiration().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+		responseDTO.setToken(jwtBearerComponent.getToken(usuario.getEmail())); 
 
 		return responseDTO;
 	}
