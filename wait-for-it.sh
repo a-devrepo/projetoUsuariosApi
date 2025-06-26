@@ -24,4 +24,4 @@ done
 
 echo "Banco de dados pronto! Iniciando aplicação..."
 
-exec "$@
+exec "$@"
