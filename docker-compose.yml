@@ -35,6 +35,27 @@ services:
     networks:
       - usuariosapi-network
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: usuariosapi-rabbitmq
+    ports:
+      - "5672:5672"      # Porta para conexão com apps
+      - "15672:15672"    # Porta da interface web
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - usuariosapi-network
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: usuariosapi-mailhog
+    ports:
+      - "1025:1025"      # Porta SMTP
+      - "8025:8025"      # Interface web
+    networks:
+      - usuariosapi-network
+
 volumes:
   usuariosapi-db-data:
 

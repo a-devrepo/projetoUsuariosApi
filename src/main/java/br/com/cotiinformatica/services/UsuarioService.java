@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.cotiinformatica.components.CryptoComponent;
 import br.com.cotiinformatica.components.JwtBearerComponent;
+import br.com.cotiinformatica.components.RabbitMQProducerComponent;
 import br.com.cotiinformatica.dtos.AutenticarUsuarioRequestDTO;
 import br.com.cotiinformatica.dtos.AutenticarUsuarioResponseDTO;
 import br.com.cotiinformatica.dtos.CriarUsuarioRequestDTO;
@@ -22,12 +23,15 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 	private CryptoComponent cryptoComponent;
 	private JwtBearerComponent jwtBearerComponent;
+	private RabbitMQProducerComponent rabbitMQProducerComponent;
 	
 	public UsuarioService(UsuarioRepository usuarioRepository,CryptoComponent cryptoComponent,
-			JwtBearerComponent jwtBearerComponent) {
+			JwtBearerComponent jwtBearerComponent,
+			RabbitMQProducerComponent rabbitMQProducerComponent) {
 		this.usuarioRepository = usuarioRepository;
 		this.cryptoComponent = cryptoComponent;
 		this.jwtBearerComponent = jwtBearerComponent;
+		this.rabbitMQProducerComponent = rabbitMQProducerComponent;
 	}
 	
 	public CriarUsuarioResponseDTO criarUsuario(CriarUsuarioRequestDTO requestDTO) {
@@ -48,6 +52,7 @@ public class UsuarioService {
 		responseDTO.setNome(usuario.getNome());
 		responseDTO.setEmail(usuario.getEmail());
 		responseDTO.setDataHoraCriacao(LocalDateTime.now());
+		rabbitMQProducerComponent.send(responseDTO);
 		return responseDTO;
 	}
 	
