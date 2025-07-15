@@ -26,11 +26,17 @@ services:
       - "8082:8082"
     depends_on:
       - projeto-usuariosapi-db
+      - rabbitmq
+      - mailhog
     environment:
       POSTGRES_DB: projetousuariosapi
       POSTGRES_USER: usuariosuser
       POSTGRES_PASSWORD: usuariospassword
       SPRING_DATASOURCE_URL: jdbc:postgresql://projeto-usuariosapi-db:5432/projetousuariosapi
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      MAILHOG_HOST: mailhog
+      MAILHOG_PORT: 1025	
     restart: always
     networks:
       - usuariosapi-network
