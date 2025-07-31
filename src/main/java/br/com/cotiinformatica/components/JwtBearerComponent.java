@@ -1,6 +1,7 @@
 package br.com.cotiinformatica.components;
 
 import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,9 @@ public class JwtBearerComponent {
 		return new Date(currentDate.getTime() + Integer.parseInt(jwtExpiration));
 	}
 
-	public String getToken(String emailUsuario) {
+	public String getToken(UUID usuarioId) {
 		return Jwts.builder()
-				.setSubject(emailUsuario)
+				.setSubject(usuarioId.toString())
 				.setIssuedAt(new Date())
 				.setExpiration(getExpiration())
 				.signWith(SignatureAlgorithm.HS256, jwtSecret)

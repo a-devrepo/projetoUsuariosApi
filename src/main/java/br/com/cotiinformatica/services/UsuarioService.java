@@ -72,7 +72,7 @@ public class UsuarioService {
 		responseDTO.setDataHoraAcesso(LocalDateTime.now());
 		responseDTO.setDataHoraExpiracao(jwtBearerComponent
 				.getExpiration().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-		responseDTO.setToken(jwtBearerComponent.getToken(usuario.getEmail())); 
+		responseDTO.setToken(jwtBearerComponent.getToken(usuario.getId())); 
 
 		return responseDTO;
 	}
