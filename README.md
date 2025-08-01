@@ -11,6 +11,7 @@ Projeto simples de uma API REST construída com **Spring Boot** e **Java 21**, p
 - PostgreSQL (Docker)
 - Jakarta Validation
 - Swagger (OpenAPI)
+- JWT para gerar o token do usuário
 
 ## Estrutura do Projeto
 
