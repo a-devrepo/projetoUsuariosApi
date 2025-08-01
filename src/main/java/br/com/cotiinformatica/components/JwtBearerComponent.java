@@ -1,5 +1,6 @@
 package br.com.cotiinformatica.components;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.UUID;
 
@@ -28,7 +29,7 @@ public class JwtBearerComponent {
 				.setSubject(usuarioId.toString())
 				.setIssuedAt(new Date())
 				.setExpiration(getExpiration())
-				.signWith(SignatureAlgorithm.HS256, jwtSecret)
+				.signWith(SignatureAlgorithm.HS256,jwtSecret.getBytes(StandardCharsets.UTF_8))
 				.compact();
 	}
 }
