@@ -56,7 +56,7 @@ public class UsuariosController {
 	            schema = @Schema(example = """
 	                {
 	                  "status": 400,
-	                  "erro": "O email informado já está cadastrado."
+	                  "message": "O email informado já está cadastrado."
 	                }
 	            """)
 	        )
@@ -90,7 +90,7 @@ public class UsuariosController {
 	        	            schema = @Schema(example = """
 	        	                {
 	        	                  "status": 401,
-	        	                  "erro": "Acesso negado. Verique as credenciais informadas."
+	        	                  "message": "Acesso negado. Verique as credenciais informadas."
 	        	                }
 	        	            """)
 	        	        )
