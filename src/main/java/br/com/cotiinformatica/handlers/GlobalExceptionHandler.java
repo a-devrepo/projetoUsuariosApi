@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
 		
 		var body = new HashMap<String, Object>();
 		body.put("status", HttpStatus.BAD_REQUEST.value());
-		body.put("erro", exception.getMessage());
+		body.put("message", exception.getMessage());
 		
 		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
 	}
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
 		
 		var body = new HashMap<String, Object>();
 		body.put("status", HttpStatus.UNAUTHORIZED.value());
-		body.put("erro", exception.getMessage());
+		body.put("message", exception.getMessage());
 		
 		return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
 	}
